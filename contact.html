@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f4f8;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  h2 {
+    text-align: center;
+    color: #333;
+  }
+
+  form {
+    background: #ffffff;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 8px;
+    color: #555;
+    font-weight: 500;
+  }
+
+  input[type="text"],
+  textarea {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    resize: vertical;
+    font-size: 14px;
+  }
+
+  button {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  button:hover {
+    background-color: #0056b3;
+  }
+</style>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact Form</title>
+</head>
+<body>
+  <h2>Contact Us</h2>
+  <form id="contactForm">
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" required><br><br>
+    <label for="description">Description:</label><br>
+    <textarea id="description" required></textarea><br><br>
+    <button type="submit">Submit</button>
+  </form>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js"></script>
+
+  <script>
+    // Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyDZO54tmY1yEisPmSWa3UyBlJoWrvvdcpU",
+  authDomain: "safedrivelk-5bc92.firebaseapp.com",
+  projectId: "safedrivelk-5bc92",
+  storageBucket: "safedrivelk-5bc92.firebasestorage.app",
+  messagingSenderId: "541035727834",
+  appId: "1:541035727834:web:5447a98f4efa270841cee3",
+  measurementId: "G-8PEFP2H87G"
+};
+
+    // Initialize Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
+
+    // Reference to the "contacts" collection
+    const contactsRef = database.ref('contacts');
+
+    // Handle form submission
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const description = document.getElementById('description').value;
+
+      // Save data to Firebase
+      contactsRef.push({
+        name: name,
+        description: description
+      });
+
+      // Clear the form
+      document.getElementById('contactForm').reset();
+
+      alert('Your message has been sent!');
+    });
+  </script>
+</body>
+</html>
